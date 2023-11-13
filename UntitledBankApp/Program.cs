@@ -1,9 +1,14 @@
-﻿namespace UntitledBankApp;
+﻿using UntitledBankApp.Presenters;
+using UntitledBankApp.Services;
+using UntitledBankApp.Views;
+
+namespace UntitledBankApp;
 
 internal static class Program
 {
     public static void Main()
     {
-        Console.WriteLine("Hello, World!");
+        var loginPresenter = new LoginPresenter(new LoginService(), new LoginView());
+        loginPresenter.RunView();
     }
 }

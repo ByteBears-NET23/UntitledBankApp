@@ -13,7 +13,7 @@ public static class PseudoDb
 
     public static List<User> Users = new()
     {
-        new Admin("Admin", "admin", "password"),
-        new Client("Client", "username", "password", 1000, Currencies[CurrencyCode.SEK])
+        new Admin("AdminFullName", "admin", "password"),
+        new Client("ClientFullName", "username", "password", 1000, Currencies[CurrencyCode.SEK])
     };
 }
