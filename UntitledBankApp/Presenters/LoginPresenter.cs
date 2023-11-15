@@ -4,7 +4,7 @@ using UntitledBankApp.Views;
 
 namespace UntitledBankApp.Presenters;
 
-public class LoginPresenter : IPresenter
+public class LoginPresenter : Presenter
 {
     private LoginService _loginService;
     private LoginView _loginView;
@@ -15,27 +15,37 @@ public class LoginPresenter : IPresenter
         _loginView = loginView;
     }
 
-    public void RunView()
+    public override void RunView()
     {
         _loginView.DisplayHeader();
 
+        var user = GetUserFromCredentials();
+
+        if (user != null)
+        {
+            RedirectUserBasedOnRole(user);
+        }
+    }
+
+    private User? GetUserFromCredentials()
+    {
         var username = _loginView.GetUsername();
         var password = _loginView.GetPassword();
         var user = _loginService.GetUser(username, password);
 
-        if (user != null)
+        return user;
+    }
+    
+    private void RedirectUserBasedOnRole(User user)
+    {
+        switch (user)
         {
-            switch (user)
-            {
-                case Client client:
-                    var clientPresenter = new ClientPresenter(new ClientService(), new ClientView(client));
-                    clientPresenter.RunView();
-                    break;
-                case Admin admin:
-                    var adminPresenter = new AdminPresenter(new AdminService(), new AdminView(admin));
-                    adminPresenter.RunView();
-                    break;
-            }
+            case Client client:
+                RunPresenter(new ClientPresenter(new ClientService(), new ClientView(client)));
+                break;
+            case Admin admin:
+                RunPresenter(new AdminPresenter(new AdminService(), new AdminView(admin)));
+                break;
         }
     }
 }

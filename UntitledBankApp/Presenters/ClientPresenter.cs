@@ -3,7 +3,7 @@ using UntitledBankApp.Views;
 
 namespace UntitledBankApp.Presenters;
 
-public class ClientPresenter : IPresenter
+public class ClientPresenter : Presenter
 {
     private ClientService _clientService;
     private ClientView _clientView;
@@ -14,7 +14,7 @@ public class ClientPresenter : IPresenter
         _clientView = clientView;
     }
 
-    public void RunView()
+    public override void RunView()
     {
         _clientView.DisplayHeader();
     }
