@@ -2,7 +2,7 @@
 using UntitledBankApp.Services;
 using UntitledBankApp.Views;
 
-namespace UntitledBankApp;
+namespace UntitledBankApp; // TODO: Figure out a name for the app. Be it bear themed or something else.
 
 internal static class Program
 {
