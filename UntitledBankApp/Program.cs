@@ -11,6 +11,6 @@ internal static class Program
         var pseudoDb = new PseudoDb();
         var loginPresenter = new LoginPresenter(pseudoDb, new LoginService(pseudoDb), new LoginView());
         
-        loginPresenter.RunView();
+        loginPresenter.HandlePresenter();
     }
 }

@@ -2,20 +2,21 @@ using UntitledBankApp.Views.Utilities;
 
 namespace UntitledBankApp.Views;
 
-public class LoginView : IView
+public class LoginView : View
 {
-    public void DisplayHeader()
+    
+    public (string username, string password) GetCredentials()
+    {
+        DisplayHeader();
+        
+        var username = InputUtils.GetNonEmptyString("Username");
+        var password = InputUtils.GetNonEmptyString("Password");
+
+        return (username, password);
+    }
+    
+    protected override void DisplayHeader()
     {
         Console.WriteLine("LOGIN SCREEN");
-    }
-
-    public string GetUsername()
-    {
-        return InputUtils.GetNonEmptyString("Username");
-    }
-
-    public string GetPassword()
-    {
-        return InputUtils.GetNonEmptyString("Password");
     }
 }

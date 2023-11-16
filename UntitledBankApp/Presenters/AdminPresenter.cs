@@ -16,8 +16,8 @@ public class AdminPresenter : Presenter
         _adminView = adminView;
     }
 
-    public override void RunView()
+    public override void HandlePresenter()
     {
-        _adminView.DisplayHeader();
+        throw new NotImplementedException();
     }
 }

@@ -17,22 +17,20 @@ public class LoginPresenter : Presenter
         _loginView = loginView;
     }
 
-    public override void RunView()
+    public override void HandlePresenter()
     {
-        _loginView.DisplayHeader();
-
         var user = GetUserFromCredentials();
 
         if (user != null)
         {
             RedirectUserBasedOnRole(user);
         }
+        //TODO: Implement attempts. A null user is a failed login attempt
     }
 
     private User? GetUserFromCredentials()
     {
-        var username = _loginView.GetUsername();
-        var password = _loginView.GetPassword();
+        var (username, password) = _loginView.GetCredentials();
         var user = _loginService.GetUser(username, password);
 
         return user;

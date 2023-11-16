@@ -16,8 +16,8 @@ public class ClientPresenter : Presenter
         _clientView = clientView;
     }
 
-    public override void RunView()
+    public override void HandlePresenter()
     {
-        _clientView.DisplayHeader();
+        throw new NotImplementedException();
     }
 }
