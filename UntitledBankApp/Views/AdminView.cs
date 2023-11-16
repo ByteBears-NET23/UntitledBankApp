@@ -2,7 +2,7 @@ using UntitledBankApp.Models;
 
 namespace UntitledBankApp.Views;
 
-public class AdminView : IView
+public class AdminView : View
 {
     private Admin _admin;
 
@@ -11,7 +11,7 @@ public class AdminView : IView
         _admin = admin;
     }
 
-    public void DisplayHeader()
+    protected override void DisplayHeader()
     {
         Console.WriteLine($"LOGGED IN AS ADMIN {_admin.Username}");
     }

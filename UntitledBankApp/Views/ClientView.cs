@@ -2,7 +2,7 @@ using UntitledBankApp.Models;
 
 namespace UntitledBankApp.Views;
 
-public class ClientView : IView
+public class ClientView : View
 {
     private Client _client;
 
@@ -11,7 +11,7 @@ public class ClientView : IView
         _client = client;
     }
 
-    public void DisplayHeader()
+    protected override void DisplayHeader()
     {
         Console.WriteLine($"LOGGED IN AS CLIENT {_client.Username}");
     }

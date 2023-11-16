@@ -2,9 +2,9 @@ using UntitledBankApp.Models;
 
 namespace UntitledBankApp;
 
-public static class PseudoDb
+public class PseudoDb
 {
-    public static Dictionary<CurrencyCode, Currency> Currencies = new()
+    public Dictionary<CurrencyCode, Currency> Currencies = new()
     {
         // TODO: Base currency rates on USD or EUR
         // This is not how currency rates work AFK 
@@ -13,7 +13,7 @@ public static class PseudoDb
         { CurrencyCode.USD, new Currency(CurrencyCode.USD, 1.3f) }
     };
 
-    public static List<User> Users = new()
+    public List<User> Users = new()
     {
         new Admin("AdminFullName", "admin", "password"),
         new Client( "ClientFullName", "username", "password")
