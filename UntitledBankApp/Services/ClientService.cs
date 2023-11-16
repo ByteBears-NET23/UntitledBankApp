@@ -11,7 +11,7 @@ public class ClientService
         _pseudoDb = pseudoDb;
     }
     
-    public Account CreateAccount(Client client, CurrencyCode code)
+    public bool CreateAccount(Client client, CurrencyCode code)
     {
         const int minAccountValue = 1000000000;
         const int maxAccountValue = 2147483646; // 32-bit int limit -1
@@ -19,8 +19,7 @@ public class ClientService
         
         if (MaxAccountsReached(diffAccountValue))
         {
-            // TODO LOW PRIORITY: return null and explain error
-            throw new Exception("Max Accounts has been reached. Contact support.");
+            return false;
         }
         
         var number = GenerateAccountNumber(minAccountValue, maxAccountValue);
@@ -30,7 +29,9 @@ public class ClientService
         // 1.1f also gives decimal rounding error 
         var account = new Account(number, client, new Balance(0, currency), 1.1f);
 
-        return account;
+        client.Accounts.Add(account);
+
+        return true;
     }
 
     private bool MaxAccountsReached(int diffAccountValue)
