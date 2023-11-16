@@ -5,11 +5,13 @@ namespace UntitledBankApp.Presenters;
 
 public class ClientPresenter : Presenter
 {
+    private PseudoDb _pseudoDb;
     private ClientService _clientService;
     private ClientView _clientView;
 
-    public ClientPresenter(ClientService clientService, ClientView clientView)
+    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
     {
+        _pseudoDb = pseudoDb;
         _clientService = clientService;
         _clientView = clientView;
     }

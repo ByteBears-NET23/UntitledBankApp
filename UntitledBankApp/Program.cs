@@ -8,7 +8,9 @@ internal static class Program
 {
     public static void Main()
     {
-        var loginPresenter = new LoginPresenter(new LoginService(), new LoginView());
+        var pseudoDb = new PseudoDb();
+        var loginPresenter = new LoginPresenter(pseudoDb, new LoginService(pseudoDb), new LoginView());
+        
         loginPresenter.RunView();
     }
 }

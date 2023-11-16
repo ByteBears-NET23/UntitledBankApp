@@ -6,11 +6,13 @@ namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter
 {
+    private PseudoDb _pseudoDb;
     private LoginService _loginService;
     private LoginView _loginView;
 
-    public LoginPresenter(LoginService loginService, LoginView loginView)
+    public LoginPresenter(PseudoDb pseudoDb, LoginService loginService, LoginView loginView)
     {
+        _pseudoDb = pseudoDb;
         _loginService = loginService;
         _loginView = loginView;
     }
@@ -41,10 +43,10 @@ public class LoginPresenter : Presenter
         switch (user)
         {
             case Client client:
-                RunPresenter(new ClientPresenter(new ClientService(), new ClientView(client)));
+                RunPresenter(new ClientPresenter(_pseudoDb, new ClientService(_pseudoDb), new ClientView(client)));
                 break;
             case Admin admin:
-                RunPresenter(new AdminPresenter(new AdminService(), new AdminView(admin)));
+                RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb), new AdminView(admin)));
                 break;
         }
     }
