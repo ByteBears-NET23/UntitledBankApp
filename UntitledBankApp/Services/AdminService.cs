@@ -31,22 +31,13 @@ public class AdminService
 
     public void SetCurrencyRate(CurrencyCode currencyCode, float rate)
     {
-        /*
-         * TODO Service: Set currency rate.
-         *
-         * Use the parameters to:
-         *
-         * Search the pseudoDb Currencies Dictionary.
-         * Use currencyCode as a key to find the Currency Object value.
-         * Update the Currency Object's "Rate" Property with the "rate" from the parameter.
-         *
-         *
-         * Note: It's undecided how we deal with currency exchange rates. (Doesn't imply you can't work on this method.)
-         *
-         * Assume that we use USD as the standard to compare currency rates to. So that 100 SEK, 9.47 in USD,
-         * is represented as 0,0947:1. And if you were to update SEK with the rate "0.05", it would become 0.05:1 or 100 SEK = 5 USD.
-         *
-         * How currency conversions are made is not a concern for this method.
-         */
+        if (_pseudoDb.Currencies.ContainsKey(currencyCode))
+        {
+             _pseudoDb.Currencies[currencyCode].Rate = rate;   
+        }
+        else
+        {
+            throw new KeyNotFoundException($"Currency '{currencyCode}' not found.");
+        }
     }
 }
