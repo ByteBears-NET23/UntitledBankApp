@@ -33,7 +33,7 @@ public class AdminService
     {
         if (_pseudoDb.Currencies.ContainsKey(currencyCode))
         {
-             _pseudoDb.Currencies[currencyCode].Rate = rate;   
+            _pseudoDb.Currencies[currencyCode].Rate = rate;   
         }
         else
         {
