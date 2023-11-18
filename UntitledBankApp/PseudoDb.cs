@@ -1,5 +1,3 @@
-using UntitledBankApp.Models;
-
 namespace UntitledBankApp;
 
 public class PseudoDb
