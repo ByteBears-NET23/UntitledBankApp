@@ -1,5 +1,3 @@
-using UntitledBankApp.Models;
-
 namespace UntitledBankApp.Views;
 
 public class AdminView : View
