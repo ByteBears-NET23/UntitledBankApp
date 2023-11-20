@@ -139,7 +139,31 @@ public class ClientService
          *
          * return true.
          */
-        
-        return true;
+
+        if (amount <= account.Balance.Amount)
+        {
+            Account? foundAccount = _pseudoDb.Users
+                .OfType<Client>()
+                .SelectMany(client => client.Accounts)
+                .FirstOrDefault(account => account.Number == toAccountNumber);
+
+            if (foundAccount != null)
+            {
+                account.Balance.Amount -= amount;
+                var convertedAmount =  ((float)amount * (1 / _pseudoDb.Currencies[CurrencyCode.USD].Rate)) * foundAccount.Balance.Currency.Rate;
+
+                foundAccount.Balance.Amount += (decimal)convertedAmount;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }    
     }
 }
