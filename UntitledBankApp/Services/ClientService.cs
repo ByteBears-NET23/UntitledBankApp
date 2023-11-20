@@ -79,8 +79,18 @@ public class ClientService
          *
          * Return true.
          */
-        
-        throw new NotImplementedException();
+
+        // TODO: Add logic to check if the Client is eligble for a loan.
+        if (true)
+        {
+            account.Balance.Amount *= 6;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public List<Account>? GetAccounts(Client client)
