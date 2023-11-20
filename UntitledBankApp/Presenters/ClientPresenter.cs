@@ -1,6 +1,3 @@
-using UntitledBankApp.Services;
-using UntitledBankApp.Views;
-
 namespace UntitledBankApp.Presenters;
 
 public class ClientPresenter : Presenter

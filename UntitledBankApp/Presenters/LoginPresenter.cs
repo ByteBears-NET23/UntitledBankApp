@@ -1,7 +1,3 @@
-using UntitledBankApp.Models;
-using UntitledBankApp.Services;
-using UntitledBankApp.Views;
-
 namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter
