@@ -79,8 +79,18 @@ public class ClientService
          *
          * Return true.
          */
-        
-        throw new NotImplementedException();
+
+        // TODO: Add logic to check if the Client is eligble for a loan.
+        if (true)
+        {
+            account.Balance.Amount *= 6;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public List<Account>? GetAccounts(Client client)
@@ -129,7 +139,31 @@ public class ClientService
          *
          * return true.
          */
-        
-        return true;
+
+        if (amount <= account.Balance.Amount)
+        {
+            Account? foundAccount = _pseudoDb.Users
+                .OfType<Client>()
+                .SelectMany(client => client.Accounts)
+                .FirstOrDefault(account => account.Number == toAccountNumber);
+
+            if (foundAccount != null)
+            {
+                account.Balance.Amount -= amount;
+                var convertedAmount =  ((float)amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
+
+                foundAccount.Balance.Amount += (decimal)convertedAmount;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }    
     }
 }
