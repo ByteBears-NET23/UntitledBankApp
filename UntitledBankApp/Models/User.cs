@@ -9,9 +9,39 @@ public enum Role
 public abstract class User
 {
     public Role Role { get; set; }
-    public string FullName { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string FullName
+    {
+        get => FullName;
+
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new Exception("value assigned to name cannot be null or white space.");
+            FullName = value;
+        }
+    }
+    public string Username
+    {
+        get => Username;
+
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new Exception("value assigned to name cannot be null or white space.");
+            Username = value;
+        }
+    }
+    public string Password
+    {
+        get => Password;
+
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new Exception("value assigned to name cannot be null or white space.");
+            Password = value;
+        }
+    }
 
     protected User(Role role, string fullName, string username, string password)
     {
