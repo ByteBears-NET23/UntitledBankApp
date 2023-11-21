@@ -9,9 +9,9 @@ public enum Role
 public abstract class User
 {
     public Role Role { get; set; }
-    private string _fullName;
-    private string _username;
-    private string _password;
+    private string _fullName = null!;
+    private string _username = null!;
+    private string _password = null!;
     public string FullName
     {
         get => _fullName;
