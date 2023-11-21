@@ -6,9 +6,9 @@ public class PseudoDb
     {
         // TODO: Base currency rates on USD or EUR
         // This is not how currency rates work AFK 
-        { CurrencyCode.EUR, new Currency(CurrencyCode.EUR, 1.1m) },
-        { CurrencyCode.SEK, new Currency(CurrencyCode.SEK, 1.2m) },
-        { CurrencyCode.USD, new Currency(CurrencyCode.USD, 1.3m) }
+        { CurrencyCode.EUR, new Currency(CurrencyCode.EUR, 0.9m) },
+        { CurrencyCode.SEK, new Currency(CurrencyCode.SEK, 10.41m) },
+        { CurrencyCode.USD, new Currency(CurrencyCode.USD, 1) }
     };
 
     public List<User> Users = new()
