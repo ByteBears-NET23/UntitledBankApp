@@ -20,7 +20,7 @@ public abstract class User
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new Exception("value assigned to name cannot be null or white space.");
-            FullName = value;
+            _fullName = value;
         }
     }
     public string Username
@@ -31,7 +31,7 @@ public abstract class User
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new Exception("value assigned to name cannot be null or white space.");
-            Username = value;
+            _username = value;
         }
     }
     public string Password
@@ -42,7 +42,7 @@ public abstract class User
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new Exception("value assigned to name cannot be null or white space.");
-            Password = value;
+            _password = value;
         }
     }
 
