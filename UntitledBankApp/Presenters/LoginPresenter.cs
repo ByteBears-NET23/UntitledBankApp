@@ -1,5 +1,3 @@
-using UntitledBankApp.Views.Ui;
-
 namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter

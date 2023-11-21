@@ -1,6 +1,4 @@
-﻿using UntitledBankApp.Views.Ui;
-
-namespace UntitledBankApp; // TODO: Figure out a name for the app. Be it bear themed or something else.
+﻿namespace UntitledBankApp; // TODO: Figure out a name for the app. Be it bear themed or something else.
 
 internal static class Program
 {
@@ -10,7 +8,5 @@ internal static class Program
         var loginPresenter = new LoginPresenter(pseudoDb, new LoginService(pseudoDb), new LoginView());
         
         loginPresenter.HandlePresenter();
- 
-
     }
 }

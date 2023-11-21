@@ -1,4 +1,3 @@
-using UntitledBankApp.Views.Ui;
 using UntitledBankApp.Views.Utilities;
 
 namespace UntitledBankApp.Views;
@@ -18,7 +17,6 @@ public class LoginView : View
     
     protected override void DisplayHeader()
     {
-        RunUi runUi = new RunUi();
-        runUi.Run();
+        Console.WriteLine("LOGIN SCREEN");
     }
 }
