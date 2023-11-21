@@ -9,9 +9,12 @@ public enum Role
 public abstract class User
 {
     public Role Role { get; set; }
+    private string _fullName;
+    private string _username;
+    private string _password;
     public string FullName
     {
-        get => FullName;
+        get => _fullName;
 
         set
         {
@@ -22,7 +25,7 @@ public abstract class User
     }
     public string Username
     {
-        get => Username;
+        get => _username;
 
         set
         {
@@ -33,7 +36,7 @@ public abstract class User
     }
     public string Password
     {
-        get => Password;
+        get => _password;
 
         set
         {
