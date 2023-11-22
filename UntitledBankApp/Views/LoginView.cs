@@ -29,8 +29,19 @@ public class LoginView : View
 ";
 
         Console.WriteLine($"{Edugrade}");
-        Application app = new Application();
-        app.Run();
+        var myBox = new Box(width: 95, height: 20, left: 13, top: 9);
+        myBox.Draw();
+
+        //Console.ReadLine();
+        //var menuOptions1 = new[] { "Option 1", "Option 2", "Option 3", "Exit" };
+        var menuOptions2 = new[] { "Login", "Exit", "Choi};
+
+        var dropdownMenu = new DropdownMenu();
+        //dropdownMenu.Run(menuOptions1, left: 2, top: 8); // Set initial position
+
+        // To use another menu with a different position
+        dropdownMenu.Run(menuOptions2, left: 55, top: 20);
+
 
     }
 }

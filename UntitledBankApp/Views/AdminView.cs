@@ -12,5 +12,6 @@ public class AdminView : View
     protected override void DisplayHeader()
     {
         Console.WriteLine($"LOGGED IN AS ADMIN {_admin.Username}");
+        var AdminmenuOptions1 = new[] { "CreateUser", "SetCurrencyRate", "Back" };
     }
 }

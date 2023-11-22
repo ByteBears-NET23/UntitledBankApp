@@ -12,5 +12,6 @@ public class ClientView : View
     protected override void DisplayHeader()
     {
         Console.WriteLine($"LOGGED IN AS CLIENT {_client.Username}");
+        var AdminmenuOptions1 = new[] { "CreateUser", "SetCurrencyRate", "Back" };
     }
 }
