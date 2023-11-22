@@ -33,15 +33,15 @@ public class AdminService
         {
             return false;
         }
-        else if(Role.Admin is Role)
+        else if(role is Role.Admin)
         {
-            Admin newAdmin = new Admin("NewFullName", username,"NewPassword");
+            Admin newAdmin = new Admin(fullname, username,password);
             _pseudoDb.Users.Add(newAdmin);
             return true;
         }
         else
         {
-            Client newClient = new Client("NewFullName", username, "NewPassword");
+            Client newClient = new Client(fullname, username, password);
             _pseudoDb.Users.Add(newClient);
             return true;
         }
