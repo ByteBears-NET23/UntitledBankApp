@@ -15,9 +15,6 @@ public class AdminService
 
     public bool CreateUser(Role role, string fullname, string username, string password)
     {
-
-        UserFactory userFactory = new UserFactory();
-
         bool checkUsername = _pseudoDb.Users.Exists(u => u.Username == username);
         if (checkUsername)
         {
@@ -25,11 +22,10 @@ public class AdminService
         }
         else
         {
-            CreateUser(role,fullname,username,password);
-            _pseudoDb.Users.Add();
+            var user = _userFactory.CreateUser(role,fullname,username,password);
+            _pseudoDb.Users.Add(user);
             return true;
         }
-
     }
     public void SetCurrencyRate(CurrencyCode currencyCode, float rate)
     {

@@ -8,7 +8,7 @@ namespace UntitledBankApp.Factories
 {
     public class UserFactory
     {
-        public static User CreateUser(Role role, string fullname, string username, string password)
+        public User CreateUser(Role role, string fullname, string username, string password)
         {
             switch (role)
             {
