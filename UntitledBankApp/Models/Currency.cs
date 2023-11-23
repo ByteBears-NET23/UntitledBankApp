@@ -10,9 +10,9 @@ public enum CurrencyCode
 public class Currency
 {
     public CurrencyCode Code { get; set; }
-    public float Rate { get; set; }
+    public decimal Rate { get; set; }
 
-    public Currency(CurrencyCode currencyCode, float rate)
+    public Currency(CurrencyCode currencyCode, decimal rate)
     {
         Code = currencyCode;
         Rate = rate;
