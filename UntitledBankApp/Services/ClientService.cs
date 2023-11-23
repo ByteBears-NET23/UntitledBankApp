@@ -150,9 +150,9 @@ public class ClientService
             if (foundAccount != null)
             {
                 account.Balance.Amount -= amount;
-                var convertedAmount =  ((decimal)amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
+                var convertedAmount =  (amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
 
-                foundAccount.Balance.Amount += (decimal)convertedAmount;
+                foundAccount.Balance.Amount += convertedAmount;
 
                 return true;
             }
