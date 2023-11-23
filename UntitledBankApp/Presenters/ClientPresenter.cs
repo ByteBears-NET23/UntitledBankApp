@@ -15,6 +15,13 @@ public class ClientPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        throw new NotImplementedException();
+        PseudoDb pseudoDb = new PseudoDb(); // 
+        Client client = new Client("ClientFullName", "ClientUsername", "ClientPassword");
+
+       
+        ClientService clientService = new ClientService(pseudoDb);
+        ClientView clientView = new ClientView(client, clientService);
+
+        clientView.DisplayClientMenu();
     }
 }
