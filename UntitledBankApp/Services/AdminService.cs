@@ -11,22 +11,6 @@ public class AdminService
 
     public bool CreateUser(Role role, string fullname, string username, string password)
     {
-        /*
-* TODO Service: Create User objects.
-*
-* Use the parameters to:
-* 
-* Search the pseudoDb Users List. Find any duplicate usernames.
-
-* Usernames must be unique, since they're used during login.
-* If there is another User object with the same name, return false to the method caller.
-* Otherwise, create a User object: Client or Admin depending on the value of "role".
-* Add this object to the Users List in pseudoDb and return true.
-*
-*/
-
-
-     
         
         bool checkUsername = _pseudoDb.Users.Exists(u => u.Username == username);
         if (checkUsername)
@@ -44,11 +28,8 @@ public class AdminService
             Client newClient = new Client(fullname, username, password);
             _pseudoDb.Users.Add(newClient);
             return true;
-        }
-        
-
+        }   
     }
-
     public void SetCurrencyRate(CurrencyCode currencyCode, float rate)
     {
         if (_pseudoDb.Currencies.ContainsKey(currencyCode))
