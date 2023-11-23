@@ -57,40 +57,24 @@ public class ClientService
         return _pseudoDb.Users.OfType<Client>().Any(client => client.Accounts.Any(account => account.Number == number));
     }
 
-    public bool Loan(Account account)
+    public bool Loan(Account account, decimal amount)
     {
-        /*
-         * TODO Service: Loan balance amount from the bank
-         *
-         *
-         * Use the parameters to:
-         *
-         * Use the Account's Owner property to find the Client who owns it.
-         * Determine if the Client's Loan Property is less than 5.
-         * If it is 5 or greater (should be impossible, but still), return false.
-         * Otherwise, find the Currency Code used for the Account's Balance.
-         * 
-         * Use the Currency Code to determine a sufficient "amount" to grant the Account Balance.
-         * For example, we don't want to give an account using vietnamese dong, "100" (0,044 SEK) and give someone
-         * using EUR "100" (1151 SEK).
-         *
-         * Add the value to the Balance's Amount property.
-         * Update the Owner's Loan property with +1.
-         *
-         * Return true.
-         */
-
-        // TODO: Add logic to check if the Client is eligble for a loan.
-        if (true)
+        if (account.Owner.loanCap == 0 && account.Balance.Amount != 0)
         {
-            account.Balance.Amount *= 6;
+            account.Owner.loanCap = account.Balance.Amount * 6; // Maybe update this to check the balance of all accounts the client own           
+        }
+
+        if ((amount + account.Owner.debt) <= account.Owner.loanCap)
+        {
+            account.Owner.debt += amount;
+            account.Balance.Amount += amount;
 
             return true;
         }
         else
         {
             return false;
-        }
+        } 
     }
 
     public List<Account>? GetAccounts(Client client)
@@ -150,9 +134,9 @@ public class ClientService
             if (foundAccount != null)
             {
                 account.Balance.Amount -= amount;
-                var convertedAmount =  ((decimal)amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
+                var convertedAmount =  (amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
 
-                foundAccount.Balance.Amount += (decimal)convertedAmount;
+                foundAccount.Balance.Amount += convertedAmount;
 
                 return true;
             }
