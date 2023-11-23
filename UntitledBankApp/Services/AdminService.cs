@@ -1,3 +1,5 @@
+using UntitledBankApp.Factories;
+
 namespace UntitledBankApp.Services;
 
 public class AdminService
@@ -11,24 +13,10 @@ public class AdminService
 
     public bool CreateUser(Role role, string fullname, string username, string password)
     {
-        
-        bool checkUsername = _pseudoDb.Users.Exists(u => u.Username == username);
-        if (checkUsername)
-        {
-            return false;
-        }
-        else if(role is Role.Admin)
-        {
-            Admin newAdmin = new Admin(fullname, username,password);
-            _pseudoDb.Users.Add(newAdmin);
-            return true;
-        }
-        else
-        {
-            Client newClient = new Client(fullname, username, password);
-            _pseudoDb.Users.Add(newClient);
-            return true;
-        }   
+
+        UserFactory userFactory = new UserFactory(_pseudoDb.Users);
+
+        return userFactory.CreateUser(role, fullname, username, password);
     }
     public void SetCurrencyRate(CurrencyCode currencyCode, float rate)
     {
