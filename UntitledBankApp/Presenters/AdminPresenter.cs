@@ -15,6 +15,18 @@ public class AdminPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        throw new NotImplementedException();
+        new AdminView(new Admin("AdminFullName", "AdminUsername", "AdminPassword"))
+               .ShowAdminMenu();
+
+        Console.WriteLine("Enter your choice: ");
+        if (int.TryParse(Console.ReadLine(), out int choice))
+        {
+            new AdminView(new Admin("AdminFullName", "AdminUsername", "AdminPassword"))
+                .HandleAdminInput(choice, new AdminService(new PseudoDb()));
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a number.\n");
+        }
     }
 }
