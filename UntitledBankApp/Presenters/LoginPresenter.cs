@@ -1,3 +1,5 @@
+using UntitledBankApp.Factories;
+
 namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter
@@ -32,6 +34,13 @@ public class LoginPresenter : Presenter
         return user;
     }
     
+    private void EnterUsername()
+    {
+        Console.WriteLine("Enter your username: ");
+        string username = Console.ReadLine();
+        // potentially more code here
+    }
+    
     private void RedirectUserBasedOnRole(User user)
     {
         switch (user)
@@ -40,7 +49,7 @@ public class LoginPresenter : Presenter
                 RunPresenter(new ClientPresenter(_pseudoDb, new ClientService(_pseudoDb), new ClientView(client)));
                 break;
             case Admin admin:
-                RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb), new AdminView(admin)));
+                RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb, new UserFactory()), new AdminView(admin)));
                 break;
         }
     }

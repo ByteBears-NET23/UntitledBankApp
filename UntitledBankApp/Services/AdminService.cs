@@ -1,12 +1,16 @@
+using UntitledBankApp.Factories;
+
 namespace UntitledBankApp.Services;
 
 public class AdminService
 {
     private PseudoDb _pseudoDb;
+    private UserFactory _userFactory;
     
-    public AdminService(PseudoDb pseudoDb)
+    public AdminService(PseudoDb pseudoDb, UserFactory userFactory)
     {
         _pseudoDb = pseudoDb;
+        _userFactory = userFactory;
     }
 
     public bool CreateUser(Role role, string fullname, string username, string password)
