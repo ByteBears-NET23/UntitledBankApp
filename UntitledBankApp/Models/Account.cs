@@ -6,9 +6,9 @@ public class Account
     public Client Owner { get; }
     public Balance Balance { get; set; }
     public List<Transfer> Transfers { get; set; }
-    public float InterestRate { get; set; }
+    public decimal InterestRate { get; set; }
 
-    public Account(int number, Client client, Balance balance, float interestRate)
+    public Account(int number, Client client, Balance balance, decimal interestRate)
     {
         Number = number;
         Owner = client;

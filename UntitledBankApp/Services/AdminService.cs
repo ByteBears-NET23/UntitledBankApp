@@ -49,7 +49,7 @@ public class AdminService
 
     }
 
-    public void SetCurrencyRate(CurrencyCode currencyCode, float rate)
+    public void SetCurrencyRate(CurrencyCode currencyCode, decimal rate)
     {
         if (_pseudoDb.Currencies.ContainsKey(currencyCode))
         {

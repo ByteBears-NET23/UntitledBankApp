@@ -25,7 +25,7 @@ public class ClientService
         var currency = _pseudoDb.Currencies[code];
         // TODO: InterestRate should probably use a simple algorithm based of Balance.Amount and Balance.Currency.Code. And not be a required parameter.
         // 1.1f also gives decimal rounding error 
-        var account = new Account(number, client, new Balance(0, currency), 1.1f);
+        var account = new Account(number, client, new Balance(0, currency), 1.01m);
 
         client.Accounts.Add(account);
 
@@ -150,7 +150,7 @@ public class ClientService
             if (foundAccount != null)
             {
                 account.Balance.Amount -= amount;
-                var convertedAmount =  ((float)amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
+                var convertedAmount =  ((decimal)amount * (1 / account.Balance.Currency.Rate)) * foundAccount.Balance.Currency.Rate;
 
                 foundAccount.Balance.Amount += (decimal)convertedAmount;
 
