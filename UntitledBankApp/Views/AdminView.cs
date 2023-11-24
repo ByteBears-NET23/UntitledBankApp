@@ -1,115 +1,116 @@
-namespace UntitledBankApp.Views;
-
 public class AdminView : View
 {
-    private Admin _admin;
+    private Admin admin;
 
     public AdminView(Admin admin)
     {
-        _admin = admin;
+        this.admin = admin;
     }
 
     protected override void DisplayHeader()
     {
-        Console.WriteLine("************ Admin Dashboard ************");
-        Console.WriteLine($"Welcome, {_admin.FullName}!");
-        Console.WriteLine("****************************************\n");
+        Console.WriteLine("=== Admin Panel ===");
     }
 
-    public void ShowAdminMenu()
+    public void ShowMessage(string message)
     {
-        DisplayHeader();
+        Console.WriteLine(message);
+    }
 
+    public int GetAdminChoice()
+    {
+        Console.WriteLine("Select an option:");
         Console.WriteLine("1. Create User");
         Console.WriteLine("2. Set Currency Rate");
-        Console.WriteLine("3. Exit\n");
+        Console.WriteLine("3. Go Back");
 
-        Console.Write("Enter your choice: ");
-    }
-
-    public void HandleAdminInput(int choice, AdminService adminService)
-    {
-        switch (choice)
+        while (true)
         {
-            case 1:
-                CreateUserMenu(adminService);
-                break;
-            case 2:
-                SetCurrencyRateMenu(adminService);
-                break;
-            case 3:
-                Console.WriteLine("Exiting Admin Dashboard. Goodbye!");
-                Environment.Exit(0);
-                break;
-            default:
-                Console.WriteLine("Invalid choice. Please try again.\n");
-                break;
-        }
-    }
-
-    private void CreateUserMenu(AdminService adminService)
-    {
-        Console.WriteLine("****** Create User ******");
-
-        Console.Write("Enter Role (Admin/Client): ");
-        string roleInput = Console.ReadLine();
-        Role role;
-
-        if (Enum.TryParse(roleInput, true, out role))
-        {
-            Console.Write("Enter Full Name: ");
-            string fullName = Console.ReadLine();
-
-            Console.Write("Enter Username: ");
-            string username = Console.ReadLine();
-
-            Console.Write("Enter Password: ");
-            string password = Console.ReadLine();
-
-            bool result = adminService.CreateUser(role, fullName, username, password);
-
-            if (result)
-                Console.WriteLine("User created successfully.");
-            else
-                Console.WriteLine("Failed to create user. Duplicate username found.");
-
-        }
-        else
-        {
-            Console.WriteLine("Invalid role. Please enter 'Admin' or 'Client'.\n");
-        }
-    }
-
-    private void SetCurrencyRateMenu(AdminService adminService)
-    {
-        Console.WriteLine("****** Set Currency Rate ******");
-
-        Console.Write("Enter Currency Code: ");
-        string currencyCodeInput = Console.ReadLine();
-
-        if (Enum.TryParse(currencyCodeInput, true, out CurrencyCode currencyCode))
-        {
-            Console.Write("Enter Currency Rate: ");
-            if (float.TryParse(Console.ReadLine(), out float rate))
+            string choiceString = Console.ReadLine();
+            if (int.TryParse(choiceString, out int choice))
             {
-                try
-                {
-                    adminService.SetCurrencyRate(currencyCode, rate);
-                    Console.WriteLine($"Currency rate for {currencyCode} set successfully.");
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
+                return choice;
             }
             else
             {
-                Console.WriteLine("Invalid rate. Please enter a valid floating-point number.\n");
+                Console.WriteLine("Invalid input. Please enter a number.");
             }
+        }
+    }
+
+    public void GetUserInputForNewUser(out Role role, out string fullName, out string username, out string password)
+    {
+        Console.WriteLine("Enter user details:");
+        role = GetRoleInput();
+        fullName = GetFullNameInput();
+        username = GetUsernameInput();
+        password = GetPasswordInput();
+    }
+
+    public void GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out float rate)
+    {
+        Console.WriteLine("Enter currency details:");
+        currencyCode = GetCurrencyCodeInput();
+        rate = GetCurrencyRateInput();
+    }
+
+    private Role GetRoleInput()
+    {
+        Console.Write("Role (Admin/Client): ");
+        return Enum.Parse<Role>(Console.ReadLine());
+    }
+
+    private string GetFullNameInput()
+    {
+        Console.Write("Full Name: ");
+        return Console.ReadLine();
+    }
+
+    private string GetUsernameInput()
+    {
+        Console.Write("Username: ");
+        return Console.ReadLine();
+    }
+
+    private string GetPasswordInput()
+    {
+        Console.Write("Password: ");
+        return Console.ReadLine();
+    }
+
+    private CurrencyCode GetCurrencyCodeInput()
+    {
+        Console.Write("Currency Code: ");
+        return Enum.Parse<CurrencyCode>(Console.ReadLine());
+    }
+
+    private float GetCurrencyRateInput()
+    {
+        Console.Write("Rate: ");
+        return float.Parse(Console.ReadLine());
+    }
+
+    public void UpdateUserCreationResult(bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            ShowMessage("User created successfully!");
         }
         else
         {
-            Console.WriteLine("Invalid currency code. Please enter a valid currency code.\n");
+            ShowMessage("Failed to create user. Username already exists.");
+        }
+    }
+
+    public void UpdateCurrencyRateResult(bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            ShowMessage("Currency rate updated successfully!");
+        }
+        else
+        {
+            ShowMessage("Failed to update currency rate. Currency not found.");
         }
     }
 }
