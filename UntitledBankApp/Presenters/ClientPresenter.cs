@@ -1,27 +1,73 @@
-namespace UntitledBankApp.Presenters;
+using System;
 
-public class ClientPresenter : Presenter
+namespace UntitledBankApp.Presenters
 {
-    private PseudoDb _pseudoDb;
-    private ClientService _clientService;
-    private ClientView _clientView;
-
-    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
+    public class ClientPresenter : Presenter
     {
-        _pseudoDb = pseudoDb;
-        _clientService = clientService;
-        _clientView = clientView;
-    }
+        private PseudoDb _pseudoDb;
+        private ClientService _clientService;
+        private ClientView _clientView;
 
-    public override void HandlePresenter()
-    {
-        PseudoDb pseudoDb = new PseudoDb(); // 
-        Client client = new Client("ClientFullName", "ClientUsername", "ClientPassword");
+        public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
+        {
+            _pseudoDb = pseudoDb;
+            _clientService = clientService;
+            _clientView = clientView;
+        }
 
-       
-        ClientService clientService = new ClientService(pseudoDb);
-        ClientView clientView = new ClientView(client, clientService);
+        public override void HandlePresenter()
+        {
+            while (true)
+            {
+                _clientView.DisplayClientMenu();
 
-        clientView.DisplayClientMenu();
+                string choice = _clientView.GetClientMenuChoice();
+
+                switch (choice)
+                {
+                    case "1":
+                        HandleCreateAccount();
+                        break;
+                    case "2":
+                        HandleViewAccounts();
+                        break;
+                    case "3":
+                        HandleRequestLoan();
+                        break;
+                    case "4":
+                        HandleTransferMoney();
+                        break;
+                    case "5":
+                        return;
+                    default:
+                        _clientView.ShowMessage("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        private void HandleCreateAccount()
+        {
+            // Implement the logic for creating a new account
+            // You can call methods from _clientService and interact with _clientView
+        }
+
+        private void HandleViewAccounts()
+        {
+            // Implement the logic for viewing accounts
+            // You can call methods from _clientService and interact with _clientView
+        }
+
+        private void HandleRequestLoan()
+        {
+            // Implement the logic for requesting a loan
+            // You can call methods from _clientService and interact with _clientView
+        }
+
+        private void HandleTransferMoney()
+        {
+            // Implement the logic for transferring money
+            // You can call methods from _clientService and interact with _clientView
+        }
     }
 }
