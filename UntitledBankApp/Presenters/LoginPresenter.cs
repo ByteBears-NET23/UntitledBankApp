@@ -52,7 +52,8 @@ public class LoginPresenter : Presenter
     {
         if (user is Client client)
         {
-            RunPresenter(new ClientPresenter(_pseudoDb, new ClientService(_pseudoDb), new ClientView(client)));
+            var clientPresenter = new ClientPresenter(_pseudoDb);
+            clientPresenter.HandlePresenter();
         }
         else if (user is Admin admin)
         {
@@ -61,8 +62,8 @@ public class LoginPresenter : Presenter
         else
         {
             Console.SetCursorPosition(44, 27);
-
             Console.WriteLine("\u001b[31mUnsupported user role.\u001b[0m");
         }
     }
+
 }

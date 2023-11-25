@@ -1,15 +1,15 @@
+using System.Drawing;
+
 namespace UntitledBankApp.Views;
+
 
 public class ClientView : View
 {
-    private Client _client;
     private SimpleMenu _menu;
     private BoxDrawer _boxDrawer;
 
-    public ClientView(Client client, ClientService clientService = null)
+    public ClientView()
     {
-        _client = client;
-
         // Initialize menu options
         var menuOptions = new string[] { "Create Account", "View Accounts", "Request Loan", "Transfer Money", "Exit" };
 
@@ -19,10 +19,12 @@ public class ClientView : View
         // Initialize BoxDrawer
         _boxDrawer = new BoxDrawer(60, 19, 10, 32);
     }
+
     public int GetClientMenuChoice()
     {
         return _menu.DisplayMenu();
     }
+
     public void DisplayClientMenu()
     {
         DisplayHeader();
@@ -46,9 +48,39 @@ public class ClientView : View
                 Environment.Exit(0); // Exit the application
                 break;
             default:
-                ShowMessage("Invalid choice. Please try again.");
+                ShowMessage("Invalid choice. Please try again.", ConsoleColor.DarkRed);
                 break;
         }
+    }
+
+    public string GetAccountInfo()
+    {
+        DisplayHeader();
+        Console.SetCursorPosition(52, 14);
+        Console.Write("Enter account information: ", ConsoleColor.DarkYellow);
+        return Console.ReadLine();
+    }
+
+    public string GetLoanAmount()
+    {
+        DisplayHeader();
+        Console.SetCursorPosition(52, 15);
+        Console.Write("Enter loan amount: ", ConsoleColor.DarkYellow);
+        return Console.ReadLine();
+    }
+
+    public void ShowMessage(string message,ConsoleColor color)
+    {
+        Console.SetCursorPosition(52, 18);
+        Console.WriteLine(message);
+    }
+
+    protected override void DisplayHeader()
+    {
+        Console.Clear();
+        _boxDrawer.DrawBox();
+        Console.SetCursorPosition(51, 12);
+        Console.WriteLine($"\u001b[33mWelcome To Client Panel\u001b[0m");
     }
 
     private void CreateAccount()
@@ -67,7 +99,7 @@ public class ClientView : View
         while (true)
         {
             Console.SetCursorPosition(52, 16);
-            Console.Write("Enter your choice (1 or 2): ");
+            Console.Write("Enter your choice (1 or 2): ", ConsoleColor.Green);
 
             if (int.TryParse(Console.ReadLine(), out accountTypeChoice))
             {
@@ -78,12 +110,12 @@ public class ClientView : View
                 }
                 else
                 {
-                    ShowMessage("Invalid choice. Please enter 1 or 2.");
+                    ShowMessage("Invalid choice. Please enter 1 or 2.", ConsoleColor.DarkRed);
                 }
             }
             else
             {
-                ShowMessage("Invalid input. Please enter a number.");
+                ShowMessage("Invalid input. Please enter a number.", ConsoleColor.DarkRed);
             }
         }
 
@@ -91,18 +123,12 @@ public class ClientView : View
         ShowMessage("Account created successfully!", ConsoleColor.Green);
     }
 
-    private void ShowMessage(string message)
-    {
-        Console.SetCursorPosition(52, 18);
-        Console.WriteLine(message);
-    }
-
     private void ViewAccounts()
     {
         Console.SetCursorPosition(52, 13);
 
         // Implement logic for viewing accounts...
-        ShowMessage("Viewing accounts...");
+        ShowMessage("Viewing accounts...", ConsoleColor.DarkYellow);
     }
 
     private void RequestLoan()
@@ -114,44 +140,12 @@ public class ClientView : View
         string loanAmount = Console.ReadLine();
 
         // Further processing based on loanAmount...
-        ShowMessage("Loan requested successfully!");
+        ShowMessage("Loan requested successfully!", ConsoleColor.Green);
     }
 
     private void TransferMoney()
     {
         // Implement logic for transferring money...
-        ShowMessage("Money transferred successfully!");
-    }
-
-    public string GetAccountInfo()
-    {
-        DisplayHeader();
-        Console.SetCursorPosition(52, 14);
-        Console.Write("Enter account information: ");
-        return Console.ReadLine();
-    }
-
-    public string GetLoanAmount()
-    {
-        DisplayHeader();
-        Console.SetCursorPosition(52, 15);
-        Console.Write("Enter loan amount: ");
-        return Console.ReadLine();
-    }
-
-    public void ShowMessage(string message, ConsoleColor color)
-    {
-        Console.ForegroundColor = color;
-        Console.SetCursorPosition(52, 18);
-        Console.WriteLine(message);
-        Console.ResetColor();
-    }
-
-    protected override void DisplayHeader()
-    {
-        Console.Clear();
-        _boxDrawer.DrawBox();
-        Console.SetCursorPosition(51, 12);
-        Console.WriteLine($"\u001b[33mWelcome To Client Panel\u001b[0m");
+        ShowMessage("Money transferred successfully!", ConsoleColor.Green);
     }
 }
