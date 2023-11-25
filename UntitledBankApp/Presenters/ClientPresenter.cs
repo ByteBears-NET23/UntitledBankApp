@@ -15,6 +15,64 @@ public class ClientPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        throw new NotImplementedException();
+        while (true)
+        {
+            _clientView.DisplayClientMenu();
+
+            int choice = _clientView.GetClientMenuChoice();
+
+            switch (choice)
+            {
+                case 1:
+                    HandleCreateAccount();
+                    break;
+                case 2:
+                    HandleViewAccounts();
+                    break;
+                case 3:
+                    HandleRequestLoan();
+                    break;
+                case 4:
+                    HandleTransferMoney();
+                    break;
+                case 5:
+                    return;
+                default:
+                    _clientView.ShowMessage("Invalid choice. Please try again.", ConsoleColor.Red);
+                    break;
+            }
+        }
+    }
+
+    private void HandleCreateAccount()
+    {
+        // Implement the logic for creating a new account
+        // You can call methods from _clientService and interact with _clientView
+        string accountInfo = _clientView.GetAccountInfo();
+        // Further processing...
+        _clientView.ShowMessage("Account created successfully!", ConsoleColor.Green);
+    }
+
+    private void HandleViewAccounts()
+    {
+        // Implement the logic for viewing accounts
+        // You can call methods from _clientService and interact with _clientView
+        _clientView.ShowMessage("Viewing accounts...", ConsoleColor.DarkGray);
+    }
+
+    private void HandleRequestLoan()
+    {
+        // Implement the logic for requesting a loan
+        // You can call methods from _clientService and interact with _clientView
+        string loanAmount = _clientView.GetLoanAmount();
+        // Further processing...
+        _clientView.ShowMessage("Loan requested successfully!", ConsoleColor.Green);
+    }
+
+    private void HandleTransferMoney()
+    {
+        // Implement the logic for transferring money
+        // You can call methods from _clientService and interact with _clientView
+        _clientView.ShowMessage("Money transferred successfully!", ConsoleColor.Green);
     }
 }
