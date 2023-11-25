@@ -7,11 +7,7 @@ public class LoginView : View
     private SimpleMenu _menu;
     private BoxDrawer _boxDrawer;
     private BoxDrawer _boxDrawerA;
-
-    public LoginView()
-    {
-
-        Console.WriteLine(@"
+    public string Tital = @"
 
                                 ╔══════════════════════════════════════════════════════════╗
                                 ║███╗   ███╗██╗   ██╗    ██████╗  █████╗ ███╗   ██╗██╗  ██╗║
@@ -21,11 +17,14 @@ public class LoginView : View
                                 ║██║ ╚═╝ ██║   ██║       ██████╔╝██║  ██║██║ ╚████║██║  ██╗║
                                 ║╚═╝     ╚═╝   ╚═╝       ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝║
                                 ╚══════════════════════════════════════════════════════════╝
-");
+";
+    public LoginView()
+    {
+
+        Console.WriteLine(Tital);
 
         // Initialize menu options
-
-        var menuOptions = new string[] { "Login", "Exit " };
+        var menuOptions = new string[] { "Login", "About ", "Exit " };
 
         // Initialize SimpleMenu
         _menu = new SimpleMenu(menuOptions, top: 22, left: 59);
@@ -52,6 +51,7 @@ public class LoginView : View
         Console.SetCursorPosition(44, 11);
         Console.WriteLine("Use the up and down arrows to select");
         var option = _menu.DisplayMenu();
+     
         if (option == 1) // Use == for string comparison
         {
             //Console.Clear();
@@ -82,8 +82,15 @@ public class LoginView : View
         }
         else
         {
+            if (option == 2)
+            {
+                var aboutNames = new string[] { "Adrian Moreno", "Alexander Doja", "Erik Berglund", "Theodor Hägg", "Yarub Adnan" };
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                DisplayAboutNames(aboutNames);
+            }
             return ("", "", ""); // Indicate exit option
         }
+       
     }
 
     private string GetMaskedInput()
@@ -125,5 +132,24 @@ public class LoginView : View
         DisplayHeader();
         var selectedOption = _menu.DisplayMenu();
         // Process the selected option as needed
+    }
+
+    void DisplayAboutNames(string[] names)
+    {
+
+        int boxTop = 10;
+        int boxLeft = 55;
+        int boxHeight = 6;
+        int boxWidth = 35;
+        int currentTop = boxTop + boxHeight - 2;
+
+        foreach (var name in names)
+        {
+            Console.SetCursorPosition(boxLeft + 1, currentTop);
+            Console.WriteLine(name);
+            currentTop++;
+            System.Threading.Thread.Sleep(1000);
+        }
+        Console.ReadKey();
     }
 }

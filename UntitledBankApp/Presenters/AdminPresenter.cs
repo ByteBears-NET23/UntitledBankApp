@@ -15,13 +15,19 @@ public class AdminPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        //Console.SetCursorPosition(40, 5);
         _adminView.ShowMessage("Welcome to the Admin Panel!");
 
         int adminChoice;
         do
         {
             adminChoice = _adminView.GetAdminChoice();
+
+            // Check for the special value indicating going back
+            if (adminChoice == 0)
+            {
+                _adminView.ShowMessage("Going back...");
+                return; // Exit the method, effectively going back
+            }
 
             // Perform the selected action
             switch (adminChoice)
@@ -32,14 +38,11 @@ public class AdminPresenter : Presenter
                 case 2:
                     HandleSetCurrencyRate();
                     break;
-                case 3:
-                    _adminView.ShowMessage("Going back...");
-                    break;
                 default:
                     _adminView.ShowMessage("Invalid choice. Please select a valid option.");
                     break;
             }
-        } while (adminChoice != 3);
+        } while (true); // Change the loop condition as needed
     }
 
     private void HandleCreateUser()

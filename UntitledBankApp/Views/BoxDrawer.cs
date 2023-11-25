@@ -24,16 +24,16 @@ namespace UntitledBankApp.Views
         public void DrawBox()
         {
             Console.SetCursorPosition(_left, _top);
-            Console.WriteLine("┌" + new string('─', _width - 2) + "┐");
+            Console.WriteLine("╔" + new string('═', _width - 2) + "╗");
 
             for (int i = 1; i < _height - 1; i++)
             {
                 Console.SetCursorPosition(_left, _top + i);
-                Console.WriteLine("│" + new string(' ', _width - 2) + "│");
+                Console.WriteLine("║" + new string(' ', _width - 2) + "║");
             }
 
             Console.SetCursorPosition(_left, _top + _height - 1);
-            Console.WriteLine("└" + new string('─', _width - 2) + "┘");
+            Console.WriteLine("╚" + new string('═', _width - 2) + "╝");
         }
     }
 

@@ -152,6 +152,6 @@ public class ClientView : View
         Console.Clear();
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(51, 12);
-        Console.WriteLine($"Welcome To Client Panel");
+        Console.WriteLine($"\u001b[33mWelcome To Client Panel\u001b[0m");
     }
 }

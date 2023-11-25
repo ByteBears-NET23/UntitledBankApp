@@ -22,8 +22,17 @@ public class AdminView : View
 
     public int GetAdminChoice()
     {
-        return _menu.DisplayMenu();
+        int choice = _menu.DisplayMenu();
+
+        // Check if the user selected "3: Go Back"
+        if (choice == 3)
+        {
+            return 0; // Special value to indicate going back
+        }
+
+        return choice;
     }
+
 
     protected override void DisplayHeader()
     {
@@ -48,7 +57,8 @@ public class AdminView : View
     {
         DisplayHeader();
         Console.SetCursorPosition(49, 12);
-        Console.WriteLine("Enter user details:");
+        Console.WriteLine("\u001b[32mEnter user details\u001b[0m");
+        Console.ResetColor();
         role = GetRoleInput();
         fullName = GetFullNameInput();
         username = GetUsernameInput();
@@ -58,8 +68,8 @@ public class AdminView : View
     public void GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out float rate)
     {
         DisplayHeader();
-        Console.SetCursorPosition(49, 12);
-        Console.WriteLine("Enter currency details:");
+        Console.SetCursorPosition(50, 12);
+        Console.WriteLine("\u001b[32mEnter currency details\u001b[0m");
         currencyCode = GetCurrencyCodeInput();
         rate = GetCurrencyRateInput();
     }
@@ -125,7 +135,7 @@ public class AdminView : View
     {
         if (isSuccess)
         {
-            Console.SetCursorPosition(49, 18);
+            Console.SetCursorPosition(47, 18);
 
             ShowMessage("\u001b[32mCurrency rate updated successfully!\u001b[0m");
         }
