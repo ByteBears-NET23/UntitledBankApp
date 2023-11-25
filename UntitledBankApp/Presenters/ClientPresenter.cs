@@ -5,12 +5,25 @@ public class ClientPresenter : Presenter
     private PseudoDb _pseudoDb;
     private ClientService _clientService;
     private ClientView _clientView;
+    private Client _client; // Add a field to store the Client instance
+    private PseudoDb pseudoDb;
+    private ClientService clientService;
+    private ClientView clientView;
 
-    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
+    // Modify the constructor to accept Client instance
+    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView, Client client)
     {
         _pseudoDb = pseudoDb;
         _clientService = clientService;
         _clientView = clientView;
+        _client = client; // Store the Client instance
+    }
+
+    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
+    {
+        this.pseudoDb = pseudoDb;
+        this.clientService = clientService;
+        this.clientView = clientView;
     }
 
     public override void HandlePresenter()
@@ -42,6 +55,7 @@ public class ClientPresenter : Presenter
                     break;
             }
         }
+
     }
 
     private void HandleCreateAccount()

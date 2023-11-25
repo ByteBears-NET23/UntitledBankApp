@@ -5,12 +5,25 @@ public class AdminPresenter : Presenter
     private PseudoDb _pseudoDb;
     private AdminService _adminService;
     private AdminView _adminView;
+    private Admin _admin; // Add a field to store the Admin instance
+    private PseudoDb pseudoDb;
+    private AdminService adminService;
+    private AdminView adminView;
 
     public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView)
+    {
+        this.pseudoDb = pseudoDb;
+        this.adminService = adminService;
+        this.adminView = adminView;
+    }
+
+    // Modify the constructor to accept Admin instance
+    public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView, Admin admin)
     {
         _pseudoDb = pseudoDb;
         _adminService = adminService;
         _adminView = adminView;
+        _admin = admin; // Store the Admin instance
     }
 
     public override void HandlePresenter()

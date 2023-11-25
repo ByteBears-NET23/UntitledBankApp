@@ -12,6 +12,7 @@ public class AdminView : View
 
         // Initialize menu options
         var menuOptions = new string[] { "1:Create User", "2:Set Currency Rate", "3:Go Back" };
+        Console.WriteLine(Tital);
 
         // Initialize SimpleMenu
         _menu = new SimpleMenu(menuOptions, top: 22, left: 55);
@@ -46,8 +47,7 @@ public class AdminView : View
     public void ShowMessage(string message)
     {
 
-        Console.Clear();
-        Console.WriteLine(Tital);
+        //Console.Clear();
 
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(49, 12);
