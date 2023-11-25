@@ -8,12 +8,13 @@ public class ClientView : View
     private SimpleMenu _menu;
     private BoxDrawer _boxDrawer;
 
-    public ClientView()
+    public ClientView(Client client)
     {
         // Initialize menu options
         var menuOptions = new string[] { "Create Account", "View Accounts", "Request Loan", "Transfer Money", "Exit" };
 
         // Initialize SimpleMenu
+        Console.WriteLine(Tital);
         _menu = new SimpleMenu(menuOptions, top: 22, left: 55);
 
         // Initialize BoxDrawer
@@ -77,7 +78,7 @@ public class ClientView : View
 
     protected override void DisplayHeader()
     {
-        Console.Clear();
+        //Console.Clear();
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(51, 12);
         Console.WriteLine($"\u001b[33mWelcome To Client Panel\u001b[0m");

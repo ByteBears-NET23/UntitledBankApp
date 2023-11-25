@@ -6,11 +6,11 @@ public class ClientPresenter : Presenter
     private ClientService _clientService;
     private ClientView _clientView;
 
-    public ClientPresenter(PseudoDb pseudoDb)
+    public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
     {
         _pseudoDb = pseudoDb;
-        _clientService = new ClientService(pseudoDb);
-        _clientView = new ClientView(); 
+        _clientService = clientService;
+        _clientView = clientView;
     }
 
     public override void HandlePresenter()

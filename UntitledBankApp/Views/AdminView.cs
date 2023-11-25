@@ -36,7 +36,7 @@ public class AdminView : View
 
     protected override void DisplayHeader()
     {
-        Console.Clear();
+        //Console.Clear();
 
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(40, 5);
@@ -47,6 +47,8 @@ public class AdminView : View
     {
 
         Console.Clear();
+        Console.WriteLine(Tital);
+
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(49, 12);
 
