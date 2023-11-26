@@ -17,7 +17,7 @@ public static void PrintString(string value)
 
 This method has one purpose: To print a string sent to it as an argument. The method doesn't know how the string was created, it is not a concern for the method. It does however know what to do with it. This method in and of itself also demonstrates a design principle called Single Responsibility Principle. Even though there is only one instruction inside the methods code block, the principle of Single Responsibility allows for an infinite amount of instructions, as long as they are in line with the purpose of the method.
 
-The the before mentioned design principles are applied upon the entire project. The abstraction comes from that a component *does something* and not how it *does something*, in relation to other components in the project.
+The before mentioned design principles are applied upon the entire project. The abstraction comes from that a component *does something* and not how it *does something*, in relation to other components in the project.
 
 ## M - Models 
 
