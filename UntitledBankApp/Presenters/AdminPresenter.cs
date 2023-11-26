@@ -5,30 +5,17 @@ public class AdminPresenter : Presenter
     private PseudoDb _pseudoDb;
     private AdminService _adminService;
     private AdminView _adminView;
-    private Admin _admin; // Add a field to store the Admin instance
-    private PseudoDb pseudoDb;
-    private AdminService adminService;
-    private AdminView adminView;
 
     public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView)
-    {
-        this.pseudoDb = pseudoDb;
-        this.adminService = adminService;
-        this.adminView = adminView;
-    }
-
-    // Modify the constructor to accept Admin instance
-    public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView, Admin admin)
     {
         _pseudoDb = pseudoDb;
         _adminService = adminService;
         _adminView = adminView;
-        _admin = admin; // Store the Admin instance
     }
 
     public override void HandlePresenter()
     {
-        _adminView.ShowMessage("Welcome to the Admin Panel!");
+        _adminView.ShowMessage("Welcome to the Admin Panel!", ConsoleColor.DarkYellow);
 
         int adminChoice;
         do
@@ -38,7 +25,7 @@ public class AdminPresenter : Presenter
             // Check for the special value indicating going back
             if (adminChoice == 0)
             {
-                _adminView.ShowMessage("Going back...");
+                _adminView.ShowMessage("Going back...", ConsoleColor.DarkGray);
                 return; // Exit the method, effectively going back
             }
 
@@ -50,9 +37,15 @@ public class AdminPresenter : Presenter
                     break;
                 case 2:
                     HandleSetCurrencyRate();
+
+                    break;
+
+                case 3: // Logout option
+                    if (_adminView.ConfirmLogout())
+                        return; // Exit the method, effectively logging out
                     break;
                 default:
-                    _adminView.ShowMessage("Invalid choice. Please select a valid option.");
+                    _adminView.ShowMessage("Invalid choice. Please select a valid option.", ConsoleColor.DarkRed);
                     break;
             }
         } while (true); // Change the loop condition as needed
@@ -68,7 +61,7 @@ public class AdminPresenter : Presenter
         }
         catch (Exception ex)
         {
-            _adminView.ShowMessage($"Error: {ex.Message}");
+            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed);
         }
     }
 
@@ -82,7 +75,7 @@ public class AdminPresenter : Presenter
         }
         catch (KeyNotFoundException ex)
         {
-            _adminView.ShowMessage($"Error: {ex.Message}");
+            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed);
             _adminView.UpdateCurrencyRateResult(false);
         }
     }

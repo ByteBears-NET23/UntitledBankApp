@@ -11,7 +11,7 @@ public class AdminView : View
         this.admin = admin;
 
         // Initialize menu options
-        var menuOptions = new string[] { "1:Create User", "2:Set Currency Rate", "3:Go Back" };
+        var menuOptions = new string[] { "1:Create User", "2:Set Currency Rate", "3:Go Back", "Logout" };
         Console.WriteLine(Tital);
 
         // Initialize SimpleMenu
@@ -44,7 +44,7 @@ public class AdminView : View
         //Console.WriteLine("=== Admin Panel ===");
     }
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, ConsoleColor darkGray)
     {
 
         //Console.Clear();
@@ -79,42 +79,42 @@ public class AdminView : View
     private Role GetRoleInput()
     {
         Console.SetCursorPosition(49, 12);
-        Console.Write("Role (Admin/Client): ");
+        Console.Write("\u001b[32mRole (Admin/Client): \u001b[0m");
         return Enum.Parse<Role>(Console.ReadLine());
     }
 
     private string GetFullNameInput()
     {
         Console.SetCursorPosition(49, 13);
-        Console.Write("Full Name: ");
+        Console.Write("\u001b[32mFull Name: \u001b[0m");
         return Console.ReadLine();
     }
 
     private string GetUsernameInput()
     {
         Console.SetCursorPosition(49, 14);
-        Console.Write("Username: ");
+        Console.Write("\u001b[32mUsername: \u001b[0m");
         return Console.ReadLine();
     }
 
     private string GetPasswordInput()
     {
         Console.SetCursorPosition(49, 15);
-        Console.Write("Password: ");
+        Console.Write("\u001b[32mPassword: \u001b[0m");
         return Console.ReadLine();
     }
 
     private CurrencyCode GetCurrencyCodeInput()
     {
         Console.SetCursorPosition(49, 16);
-        Console.Write("Currency Code: ");
+        Console.Write("\u001b[32mCurrency Code: \u001b[0m");
         return Enum.Parse<CurrencyCode>(Console.ReadLine());
     }
 
     private float GetCurrencyRateInput()
     {
         Console.SetCursorPosition(49, 17);
-        Console.Write("Rate: ");
+        Console.Write("\u001b[32mRate: \u001b[0m");
         return float.Parse(Console.ReadLine());
     }
 
@@ -124,12 +124,12 @@ public class AdminView : View
         {
             Console.SetCursorPosition(49, 18);
 
-            ShowMessage("\u001b[32mUser created successfully!\u001b[0m");
+            ShowMessage("User created successfully!", ConsoleColor.DarkGreen);
         }
         else
         {
             Console.SetCursorPosition(43, 18);
-            ShowMessage("\u001b[31mFailed to create user. Username already exists.\u001b[0m");
+            ShowMessage("Failed to create user. Username already exists.", ConsoleColor.DarkGreen);
         }
     }
 
@@ -139,13 +139,24 @@ public class AdminView : View
         {
             Console.SetCursorPosition(47, 18);
 
-            ShowMessage("\u001b[32mCurrency rate updated successfully!\u001b[0m");
+            ShowMessage("Currency rate updated successfully!", ConsoleColor.DarkGreen);
         }
         else
         {
             Console.SetCursorPosition(43, 18);
-            
-            ShowMessage("\u001b[31mFailed to update currency rate. Currency not found.\u001b[0m");
-        }
+
+            ShowMessage("Failed to update currency rate. Currency not found.", ConsoleColor.DarkGreen);
+    }
+
+}
+
+    public bool ConfirmLogout()
+    {
+        //Console.Clear();
+        DisplayHeader();
+        Console.SetCursorPosition(47, 16);
+        Console.Write("Are you sure you want to logout? (Y/N): ");
+        var key = Console.ReadKey().Key;
+        return key == ConsoleKey.Y;
     }
 }

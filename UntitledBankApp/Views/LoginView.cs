@@ -10,11 +10,10 @@ public class LoginView : View
 
     public LoginView()
     {
-
         Console.WriteLine(Tital);
 
         // Initialize menu options
-        var menuOptions = new string[] { "Login", "About ", "Exit " };
+        var menuOptions = new string[] { "Login", "About", "Exit" };
 
         // Initialize SimpleMenu
         _menu = new SimpleMenu(menuOptions, top: 22, left: 59);
@@ -22,7 +21,6 @@ public class LoginView : View
         // Initialize BoxDrawer
         _boxDrawer = new BoxDrawer(35, 12, top: 14, left: 44);
         _boxDrawerA = new BoxDrawer(60, 19, 10, 32);
-
     }
 
     internal string GenerateRandomCaptchaValue()
@@ -34,53 +32,62 @@ public class LoginView : View
 
     public (string username, string password, string captcha) GetCredentials()
     {
-
-        //Console.Clear();
         DisplayHeader();
         _boxDrawerA.DrawBox();
         Console.SetCursorPosition(44, 11);
         Console.WriteLine("Use the up and down arrows to select");
+
         var option = _menu.DisplayMenu();
-     
-        if (option == 1) // Use == for string comparison
+
+        if (option == 1)
         {
-            //Console.Clear();
-            DisplayHeader();
-
-            _boxDrawer.DrawBox(); // Use BoxDrawer to draw a box
-
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-
-            Console.SetCursorPosition(47, 16);
-            Console.Write("Username: ");
-            var username = Console.ReadLine();
-
-            Console.SetCursorPosition(47, 17);
-            Console.Write("Password: ");
-            var password = GetMaskedInput();
-
-            Console.ResetColor();
-
-            Console.SetCursorPosition(47, 18);
-            var captcha = GenerateRandomCaptchaValue();
-            Console.WriteLine($"Captcha: {captcha}");
-
-            Console.SetCursorPosition(47, 19);
-            Console.Write("Enter Captcha: ");
-            var userCaptcha = Console.ReadLine();
-            return (username, password, userCaptcha);
+            return GetLoginCredentials();
+        }
+        else if (option == 2)
+        {
+            DisplayAbout();
+            return ("", "", ""); // Indicate exit option
         }
         else
         {
-            if (option == 2)
-            {
-                var aboutNames = new string[] { "Adrian Moreno", "Alexander Doja", "Erik Berglund", "Theodor Hägg", "Yarub Adnan" };
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
-                DisplayAboutNames(aboutNames);
-            }
+            Environment.Exit(0);
             return ("", "", ""); // Indicate exit option
         }
-       
+    }
+
+    private (string username, string password, string captcha) GetLoginCredentials()
+    {
+        DisplayHeader();
+        _boxDrawer.DrawBox(); // Use BoxDrawer to draw a box
+
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+
+        Console.SetCursorPosition(47, 16);
+        Console.Write("Username: ");
+        var username = Console.ReadLine();
+
+        Console.SetCursorPosition(47, 17);
+        Console.Write("Password: ");
+        var password = GetMaskedInput();
+
+        Console.ResetColor();
+
+        Console.SetCursorPosition(47, 18);
+        var captcha = GenerateRandomCaptchaValue();
+        Console.WriteLine($"Captcha: {captcha}");
+
+        Console.SetCursorPosition(47, 19);
+        Console.Write("Enter Captcha: ");
+        var userCaptcha = Console.ReadLine();
+        return (username, password, userCaptcha);
+    }
+
+    private void DisplayAbout()
+    {
+        var aboutNames = new string[] { "Adrian Moreno", "Alexander Doja", "Erik Berglund", "Theodor Hägg", "Yarub Adnan" };
+        Console.ForegroundColor = ConsoleColor.DarkBlue;
+        DisplayAboutNames(aboutNames);
+        Console.ResetColor();
     }
 
     private string GetMaskedInput()
@@ -117,8 +124,6 @@ public class LoginView : View
 
     public void Show()
     {
-
-        //Console.Clear();
         DisplayHeader();
         var selectedOption = _menu.DisplayMenu();
         // Process the selected option as needed
@@ -126,7 +131,6 @@ public class LoginView : View
 
     void DisplayAboutNames(string[] names)
     {
-
         int boxTop = 10;
         int boxLeft = 55;
         int boxHeight = 6;

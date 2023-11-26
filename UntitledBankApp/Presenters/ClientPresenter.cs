@@ -6,9 +6,6 @@ public class ClientPresenter : Presenter
     private ClientService _clientService;
     private ClientView _clientView;
     private Client _client; // Add a field to store the Client instance
-    private PseudoDb pseudoDb;
-    private ClientService clientService;
-    private ClientView clientView;
 
     // Modify the constructor to accept Client instance
     public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView, Client client)
@@ -21,9 +18,9 @@ public class ClientPresenter : Presenter
 
     public ClientPresenter(PseudoDb pseudoDb, ClientService clientService, ClientView clientView)
     {
-        this.pseudoDb = pseudoDb;
-        this.clientService = clientService;
-        this.clientView = clientView;
+        _pseudoDb = pseudoDb;
+        _clientService = clientService;
+        _clientView = clientView;
     }
 
     public override void HandlePresenter()
@@ -50,12 +47,16 @@ public class ClientPresenter : Presenter
                     break;
                 case 5:
                     return;
+
+                case 6: // Logout option
+                    if (_clientView.ConfirmLogout())
+                        return; // Exit the method, effectively logging out
+                    break;
                 default:
                     _clientView.ShowMessage("Invalid choice. Please try again.", ConsoleColor.Red);
                     break;
             }
         }
-
     }
 
     private void HandleCreateAccount()
