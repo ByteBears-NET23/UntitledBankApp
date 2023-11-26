@@ -5,6 +5,7 @@ public class AdminPresenter : Presenter
     private PseudoDb _pseudoDb;
     private AdminService _adminService;
     private AdminView _adminView;
+    private bool _shouldLogout = false;
 
     public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView)
     {
@@ -15,19 +16,14 @@ public class AdminPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        _adminView.ShowMessage("Welcome to the Admin Panel!", ConsoleColor.DarkYellow);
+        _adminView.ShowMessage("Welcome to the Admin Panel!", ConsoleColor.DarkYellow,47,12);
 
         int adminChoice;
+        bool logout = false;
+
         do
         {
             adminChoice = _adminView.GetAdminChoice();
-
-            // Check for the special value indicating going back
-            if (adminChoice == 0)
-            {
-                _adminView.ShowMessage("Going back...", ConsoleColor.DarkGray);
-                return; // Exit the method, effectively going back
-            }
 
             // Perform the selected action
             switch (adminChoice)
@@ -37,20 +33,16 @@ public class AdminPresenter : Presenter
                     break;
                 case 2:
                     HandleSetCurrencyRate();
-
                     break;
-
                 case 3: // Logout option
-                    if (_adminView.ConfirmLogout())
-                        return; // Exit the method, effectively logging out
+                    logout = _adminView.ConfirmLogout();
                     break;
                 default:
                     _adminView.ShowMessage("Invalid choice. Please select a valid option.", ConsoleColor.DarkRed);
                     break;
             }
-        } while (true); // Change the loop condition as needed
+        } while (!logout); // Change the loop condition as needed
     }
-
     private void HandleCreateUser()
     {
         try
@@ -61,7 +53,7 @@ public class AdminPresenter : Presenter
         }
         catch (Exception ex)
         {
-            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed);
+            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed, 40, 11);
         }
     }
 
@@ -75,7 +67,7 @@ public class AdminPresenter : Presenter
         }
         catch (KeyNotFoundException ex)
         {
-            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed);
+            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed, 37,11);
             _adminView.UpdateCurrencyRateResult(false);
         }
     }

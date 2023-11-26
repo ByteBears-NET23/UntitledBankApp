@@ -5,7 +5,7 @@ public class AdminView : View
     private Admin admin;
     private SimpleMenu _menu;
     private BoxDrawer _boxDrawer;
-
+    private bool _shouldLogout = false;
     public AdminView(Admin admin)
     {
         this.admin = admin;
@@ -27,44 +27,23 @@ public class AdminView : View
         // Check if the user selected "3:"
         if (choice == 3)
         {
-            Console.SetCursorPosition(44, 16);
-            Console.Write("Are you sure you want to logout? (Y/N): ");
-            var key = Console.ReadKey().Key;
-            /*return*/
-            _ = key == ConsoleKey.Y;
-            if (key == ConsoleKey.Y)
-            {
-                Console.Clear();
-                var loginView = new LoginView();
-                loginView.Show();
-                loginView.GetCredentials();
-            }
-            else
-            {
-                DisplayHeader();
-
-                GetAdminChoice();
-            }
-            //return 0; // 
+            ConfirmLogout();
         }
 
         return choice;
     }
-
+    public bool ConfirmLogout()
+    {
+        ShowMessage("Are you sure you want to logout? (Y/N): ", ConsoleColor.Yellow, 44, 16);
+        var key = Console.ReadKey().Key;
+        _shouldLogout = key == ConsoleKey.Y;
+        return _shouldLogout;
+    }
     protected override void DisplayHeader()
     {
         _boxDrawer.DrawBox();
         Console.SetCursorPosition(40, 5);
     }
-
-    //public void ShowMessage(string message, ConsoleColor color, int left = 0 , int top = 0)
-    //{
-    //    _boxDrawer.DrawBox();
-    //    Console.SetCursorPosition(left, top);
-    //    Console.ForegroundColor = color;
-    //    Console.Write(message);
-    //    Console.ResetColor();
-    //}
 
     public void GetUserInputForNewUser(out Role role, out string fullName, out string username, out string password)
     {
