@@ -1,6 +1,4 @@
-﻿using UntitledBankApp.Views.Utilities;
-
-namespace UntitledBankApp.Views;
+﻿namespace UntitledBankApp.Views;
 
 public class LoginView : View
 {
@@ -8,12 +6,15 @@ public class LoginView : View
     private BoxDrawer _boxDrawer;
     private BoxDrawer _boxDrawerA;
 
+    private int loginAttempts = 3; //
+
     public LoginView()
     {
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(Tital);
 
         // Initialize menu options
-        var menuOptions = new string[] { "Login", "About", "Exit" };
+        var menuOptions = new string[] { "» Login", "» About", "» Exit " };
 
         // Initialize SimpleMenu
         _menu = new SimpleMenu(menuOptions, top: 22, left: 59);
@@ -62,30 +63,75 @@ public class LoginView : View
 
         Console.BackgroundColor = ConsoleColor.DarkRed;
 
-        Console.SetCursorPosition(47, 16);
-        Console.Write("Username: ");
+        //Console.SetCursorPosition(47, 16);
+        SetCursorPositionAndWrite(47, 16,"Username: ");
         var username = Console.ReadLine();
 
-        Console.SetCursorPosition(47, 17);
-        Console.Write("Password: ");
+        //Console.SetCursorPosition(47, 17);
+        SetCursorPositionAndWrite(47, 17,"Password: ");
         var password = GetMaskedInput();
 
         Console.ResetColor();
 
-        Console.SetCursorPosition(47, 18);
+        //Console.SetCursorPosition(47, 18);
         var captcha = GenerateRandomCaptchaValue();
-        Console.WriteLine($"Captcha: {captcha}");
+        SetCursorPositionAndWrite(47, 18,$"Captcha: {captcha}");
 
-        Console.SetCursorPosition(47, 19);
-        Console.Write("Enter Captcha: ");
+        //Console.SetCursorPosition(47, 19);
+        SetCursorPositionAndWrite(47, 19,"Enter Captcha: ");
         var userCaptcha = Console.ReadLine();
+
+        if (userCaptcha != captcha)
+        {
+            //Console.SetCursorPosition(47, 20);
+            SetCursorPositionAndWrite(47, 20,"Invalid Captcha. Login failed.");
+            Console.ReadKey();
+            return ("", "", "");
+        }
+
+        if (!IsValidLogin(username, EncryptPassword(password)))
+        {
+            loginAttempts--;
+
+            if (loginAttempts <= 0)
+            {
+                //Console.SetCursorPosition();
+                SetCursorPositionAndWrite(47, 20,"Login attempts exceeded. Exiting.");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+
+            //Console.SetCursorPosition(47, 20);
+            SetCursorPositionAndWrite(47, 20,$"Invalid login. Remaining attempts: {loginAttempts}");
+            Console.ReadKey();
+            return ("", "", "");
+        }
+
         return (username, password, userCaptcha);
+    }
+
+    private bool IsValidLogin(string username, string encryptedPassword)
+    {
+       
+        return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(encryptedPassword);
+    }
+
+    private string EncryptPassword(string password)
+    {
+        //XOR
+        
+        char[] passwordChars = password.ToCharArray();
+        for (int i = 0; i < passwordChars.Length; i++)
+        {
+            passwordChars[i] = (char)(passwordChars[i] ^ 'X');
+        }
+        return new string(passwordChars);
     }
 
     private void DisplayAbout()
     {
         var aboutNames = new string[] { "Adrian Moreno", "Alexander Doja", "Erik Berglund", "Theodor Hägg", "Yarub Adnan" };
-        Console.ForegroundColor = ConsoleColor.DarkBlue;
+        Console.ForegroundColor = ConsoleColor.Yellow;
         DisplayAboutNames(aboutNames);
         Console.ResetColor();
     }
@@ -117,8 +163,7 @@ public class LoginView : View
     protected override void DisplayHeader()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.SetCursorPosition(47, 13);
-        Console.WriteLine("Enter your login information");
+        SetCursorPositionAndWrite(47, 13,"Enter your login information");
         Console.ResetColor();
     }
 
@@ -145,5 +190,15 @@ public class LoginView : View
             System.Threading.Thread.Sleep(1000);
         }
         Console.ReadKey();
+    }
+    private void SetCursorPosition(int left, int top)
+    {
+        Console.SetCursorPosition(left, top);
+    }
+
+    private void SetCursorPositionAndWrite(int left, int top, string text)
+    {
+        SetCursorPosition(left, top);
+        Console.Write(text);
     }
 }
