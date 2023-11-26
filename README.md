@@ -1,6 +1,6 @@
 # UntitledBankApp
 
-This project was built using the design pattern Model-View-Presenter (MVP). The decision to use MVP was made in order to make it easier for team members to work in parallel due to the abstraction that the design pattern provides. 
+This project was built using the design pattern Model-View-Presenter (MVP). The decision to use MVP was made in order to make it easier for team members to work in parallel due to the abstraction that this design pattern provides. 
 The abstraction seen in MVP, and similar design patterns, promotes the design principle Separation of concerns.
 
 ![OOAD](https://raw.githubusercontent.com/ByteBears-NET23/UntitledBankApp/1e36628edee2787c5a23d12205c4eceb7fd785e3/.github/images/MVP.drawio.png)
