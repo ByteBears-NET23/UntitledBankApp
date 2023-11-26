@@ -1,3 +1,5 @@
+using System;
+
 namespace UntitledBankApp.Presenters;
 
 public class ClientPresenter : Presenter
@@ -49,7 +51,6 @@ public class ClientPresenter : Presenter
                     return;
 
                 case 6: // Logout option
-                    if (_clientView.ConfirmLogout())
                         return; // Exit the method, effectively logging out
                     break;
                 default:
@@ -65,14 +66,16 @@ public class ClientPresenter : Presenter
         // You can call methods from _clientService and interact with _clientView
         string accountInfo = _clientView.GetAccountInfo();
         // Further processing...
-        _clientView.ShowMessage("Account created successfully!", ConsoleColor.Green);
+        Console.SetCursorPosition(52,13);
+        _clientView.ShowMessage("Account created successfully!", ConsoleColor.Green, 52, 13);
     }
 
     private void HandleViewAccounts()
     {
         // Implement the logic for viewing accounts
         // You can call methods from _clientService and interact with _clientView
-        _clientView.ShowMessage("Viewing accounts...", ConsoleColor.DarkGray);
+
+        _clientView.ShowMessage("Viewing accounts...", ConsoleColor.DarkGray, 54, 13);
     }
 
     private void HandleRequestLoan()
@@ -81,13 +84,13 @@ public class ClientPresenter : Presenter
         // You can call methods from _clientService and interact with _clientView
         string loanAmount = _clientView.GetLoanAmount();
         // Further processing...
-        _clientView.ShowMessage("Loan requested successfully!", ConsoleColor.Green);
+        _clientView.ShowMessage("Loan requested successfully!", ConsoleColor.Green, 52, 13);
     }
 
     private void HandleTransferMoney()
     {
         // Implement the logic for transferring money
         // You can call methods from _clientService and interact with _clientView
-        _clientView.ShowMessage("Money transferred successfully!", ConsoleColor.Green);
+        _clientView.ShowMessage("Money transferred successfully!", ConsoleColor.Green, 50, 13);
     }
 }

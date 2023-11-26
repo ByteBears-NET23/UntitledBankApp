@@ -1,6 +1,3 @@
-using System.Drawing;
-using UntitledBankApp.Models;
-
 namespace UntitledBankApp.Views;
 
 
@@ -14,10 +11,9 @@ public class ClientView : View
     {
 
         // Initialize menu options
-        var menuOptions = new string[] { "Create Account", "View Accounts", "Request Loan", "Transfer Money", "Exit" , "Logout" };
+        var menuOptions = new string[] { "Create Account", "View Accounts", "Request Loan", "Transfer Money", "Logout" };
 
         // Initialize SimpleMenu
-        Console.WriteLine(Tital);
         _menu = new SimpleMenu(menuOptions, top: 22, left: 55);
 
         // Initialize BoxDrawer
@@ -74,26 +70,17 @@ public class ClientView : View
         return Console.ReadLine();
     }
 
-    public void ShowMessage(string message, ConsoleColor color)
-    {
-        Console.SetCursorPosition(52, 18);
-        Console.WriteLine(message);
-    }
 
     protected override void DisplayHeader()
     {
-        //Console.Clear();
         _boxDrawer.DrawBox();
-        Console.SetCursorPosition(51, 12);
-        Console.WriteLine($"\u001b[33mWelcome To Client Panel\u001b[0m");
+        ShowMessage("Welcome To Client Panel", ConsoleColor.Yellow, 51, 12);
     }
 
     private void CreateAccount()
     {
         DisplayHeader();
-        Console.SetCursorPosition(52, 13);
-        Console.WriteLine("\u001b[33mChoose account type: \u001b[0m");
-        Console.ResetColor();
+        ShowMessage("Choose account type: ", ConsoleColor.Yellow,52,13);
         Console.SetCursorPosition(52, 14);
         Console.WriteLine("1. Savings Account");
         Console.SetCursorPosition(52, 15);
@@ -125,65 +112,56 @@ public class ClientView : View
         }
 
         // Further processing based on accountTypeChoice...
-        ShowMessage("Account created successfully!", ConsoleColor.Green);
+        ShowMessage("Account created successfully!", ConsoleColor.Green, 50, 13);
     }
 
     private void ViewAccounts(List<Account> accounts)
     {
-  Console.SetCursorPosition(52, 13);
-    ShowMessage("Viewing accounts...", ConsoleColor.DarkYellow);
+        Console.SetCursorPosition(52, 13);
+        ShowMessage("Viewing accounts...", ConsoleColor.DarkYellow, 54, 13);
 
-    // Check if there are accounts to display
-    if (accounts != null && accounts.Any())
-    {
-        int startingTop = 15; // Adjust the starting top position as needed
-
-        foreach (var account in accounts)
+        // Check if there are accounts to display
+        if (accounts != null && accounts.Any())
         {
-            Console.SetCursorPosition(52, startingTop);
-            //Console.WriteLine($"Account ID: {account.Id}");
-            Console.SetCursorPosition(52, startingTop + 1);
-            //Console.WriteLine($"Account Type: {account.Type}");
-            Console.SetCursorPosition(52, startingTop + 2);
-            Console.WriteLine($"Balance: {account.Balance:C}");
-            Console.SetCursorPosition(52, startingTop + 3);
-            Console.WriteLine(new string('-', 30)); // Separator line
+            int startingTop = 15; // Adjust the starting top position as needed
 
-            // Adjust the top position for the next account
-            startingTop += 5; // Adjust as needed
+            foreach (var account in accounts)
+            {
+                Console.SetCursorPosition(52, startingTop);
+                //Console.WriteLine($"Account ID: {account.Id}");
+                Console.SetCursorPosition(52, startingTop + 1);
+                //Console.WriteLine($"Account Type: {account.Type}");
+                Console.SetCursorPosition(52, startingTop + 2);
+                Console.WriteLine($"Balance: {account.Balance:C}");
+                Console.SetCursorPosition(52, startingTop + 3);
+                Console.WriteLine(new string('-', 30)); // Separator line
+
+                // Adjust the top position for the next account
+                startingTop += 5; // Adjust as needed
+            }
         }
-    }
-    else
-    {
-        Console.SetCursorPosition(52, 15);
-        ShowMessage("No accounts to display.", ConsoleColor.DarkGray);
-    }
+        else
+        {
+            Console.SetCursorPosition(52, 15);
+            ShowMessage("No accounts to display.", ConsoleColor.DarkGray, 52, 15);
+        }
     }
 
     private void RequestLoan()
     {
         DisplayHeader();
+        ShowMessage("Enter loan amount:", ConsoleColor.Green, 52, 12);
         Console.SetCursorPosition(52, 13);
-        Console.WriteLine("Enter loan amount:");
-        Console.SetCursorPosition(52, 14);
         string loanAmount = Console.ReadLine();
 
         // Further processing based on loanAmount...
-        ShowMessage("Loan requested successfully!", ConsoleColor.Green);
+        ShowMessage("Loan requested successfully!", ConsoleColor.Green, 52, 13);
     }
 
     private void TransferMoney()
     {
         // Implement logic for transferring money...
-        ShowMessage("Money transferred successfully!", ConsoleColor.Green);
+        ShowMessage("Money transferred successfully!", ConsoleColor.Green, 50, 13);
     }
-    public bool ConfirmLogout()
-    {
-        //Console.Clear();
-        DisplayHeader();
-        Console.SetCursorPosition(47, 16);
-        Console.Write("Are you sure you want to logout? (Y/N): ");
-        var key = Console.ReadKey().Key;
-        return key == ConsoleKey.Y;
-    }
+   
 }
