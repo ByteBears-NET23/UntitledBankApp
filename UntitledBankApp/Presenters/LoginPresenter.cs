@@ -1,5 +1,3 @@
-using UntitledBankApp.Factories;
-
 namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter
@@ -17,38 +15,59 @@ public class LoginPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        var user = GetUserFromCredentials();
+        bool returnToLoginView = false;
 
-        if (user != null)
+        do
         {
-            RedirectUserBasedOnRole(user);
-        }
-        //TODO Presenter: Implement attempts. A null user is a failed login attempt
+            User? user = null;
+
+            // Keep track of login attempts
+            for (int attempts = 0; attempts < 3; attempts++)
+            {
+                var credentials = _loginView.GetCredentials();
+                user = _loginService.GetUser(credentials.username, credentials.password);
+
+                if (user != null)
+                {
+                    RedirectUserBasedOnRole(user);
+                    // Check if the user wants to go back to LoginView after successful login
+                    returnToLoginView = _loginView.ConfirmLogout();
+                    if (returnToLoginView)
+                    {
+                        break; // Exit the inner loop after successful login
+                    }
+                }
+                else
+                {
+                    Console.SetCursorPosition(44, 27);
+                    Console.WriteLine("\u001b[31mInvalid credentials. Please try again.\u001b[0m");
+                }
+            }
+
+            if (!returnToLoginView)
+            {
+                Console.SetCursorPosition(44, 27);
+                Console.WriteLine("\u001b[31mMaximum login attempts reached. Exiting...\u001b[0m");
+            }
+
+        } while (returnToLoginView);
     }
 
-    private User? GetUserFromCredentials()
-    {
-        var (username, password) = _loginView.GetCredentials();
-        var user = _loginService.GetUser(username, password);
-
-        return user;
-    }
-    private void EnterUsername()
-    {
-        Console.WriteLine("Enter your username: ");
-        string username = Console.ReadLine();
-        // potentially more code here
-    }
     private void RedirectUserBasedOnRole(User user)
     {
-        switch (user)
+        if (user is Client client)
         {
-            case Client client:
-                RunPresenter(new ClientPresenter(_pseudoDb, new ClientService(_pseudoDb), new ClientView(client)));
-                break;
-            case Admin admin:
-                RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb, new UserFactory()), new AdminView(admin)));
-                break;
+            var clientPresenter = new ClientPresenter(_pseudoDb, new ClientService(_pseudoDb), new ClientView(client));
+            clientPresenter.HandlePresenter();
+        }
+        else if (user is Admin admin)
+        {
+            RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb, new Factories.UserFactory()), new AdminView(admin)));
+        }
+        else
+        {
+            Console.SetCursorPosition(44, 27);
+            Console.WriteLine("\u001b[31mUnsupported user role.\u001b[0m");
         }
     }
 }

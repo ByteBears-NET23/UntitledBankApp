@@ -7,7 +7,7 @@ public class AdminService
     private PseudoDb _pseudoDb;
     private UserFactory _userFactory;
 
-    public AdminService(PseudoDb pseudoDb,UserFactory userFactory)
+    public AdminService(PseudoDb pseudoDb, UserFactory userFactory)
     {
         _pseudoDb = pseudoDb;
         _userFactory = userFactory;
@@ -31,7 +31,7 @@ public class AdminService
     {
         if (_pseudoDb.Currencies.ContainsKey(currencyCode))
         {
-            _pseudoDb.Currencies[currencyCode].Rate = rate;   
+            _pseudoDb.Currencies[currencyCode].Rate = rate;
         }
         else
         {
