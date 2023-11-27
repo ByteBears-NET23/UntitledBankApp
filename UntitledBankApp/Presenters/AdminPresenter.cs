@@ -66,7 +66,7 @@ public class AdminPresenter : Presenter
     {
         try
         {
-            _adminView.GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out float rate);
+            _adminView.GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out decimal rate);
             _adminService.SetCurrencyRate(currencyCode, rate);
             _adminView.UpdateCurrencyRateResult(true);
         }

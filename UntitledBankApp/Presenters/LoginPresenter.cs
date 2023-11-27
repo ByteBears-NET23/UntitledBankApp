@@ -62,7 +62,7 @@ public class LoginPresenter : Presenter
         }
         else if (user is Admin admin)
         {
-            RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb), new AdminView(admin)));
+            RunPresenter(new AdminPresenter(_pseudoDb, new AdminService(_pseudoDb, new Factories.UserFactory()), new AdminView(admin)));
         }
         else
         {

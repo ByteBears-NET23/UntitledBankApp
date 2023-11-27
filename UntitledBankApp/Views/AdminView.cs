@@ -54,7 +54,7 @@ public class AdminView : View
         password = GetInput("Password: ", ConsoleColor.Gray, 49, 13);
     }
 
-    public void GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out float rate)
+    public void GetUserInputForSettingCurrencyRate(out CurrencyCode currencyCode, out decimal rate)
     {
         DisplayHeader();
         ShowMessage("Enter currency details", ConsoleColor.DarkGray, 50, 12);
@@ -87,7 +87,7 @@ public class AdminView : View
         return Enum.Parse<CurrencyCode>(GetInput("Currency Code: ", ConsoleColor.DarkGray, 49, 16));
     }
 
-    private float GetCurrencyRateInput()
+    private decimal GetCurrencyRateInput()
     {
         return GetFloatInput("Rate: ", ConsoleColor.Gray, 49, 17);
     }
@@ -104,11 +104,11 @@ public class AdminView : View
     }
 
 
-    private float GetFloatInput(string prompt, ConsoleColor color, int left, int top)
+    private decimal GetFloatInput(string prompt, ConsoleColor color, int left, int top)
     {
         ShowMessage(prompt, color, left, top);
 
-        return float.Parse(Console.ReadLine());
+        return decimal.Parse(Console.ReadLine());
 
     }
 
