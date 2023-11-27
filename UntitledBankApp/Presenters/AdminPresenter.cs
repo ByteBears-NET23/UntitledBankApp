@@ -16,7 +16,7 @@ public class AdminPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        _adminView.ShowMessage("Welcome to the Admin Panel!", ConsoleColor.DarkYellow,47,12);
+        _adminView.ShowMessage("Welcome to the Admin Panel!", ConsoleColor.DarkYellow, 47, 12);
 
         int adminChoice;
         bool logout = false;
@@ -41,8 +41,9 @@ public class AdminPresenter : Presenter
                     _adminView.ShowMessage("Invalid choice. Please select a valid option.", ConsoleColor.DarkRed);
                     break;
             }
-        } while (!logout); // Change the loop condition as needed
+        } while (!logout && !_shouldLogout); // Change the loop condition as needed
     }
+
     private void HandleCreateUser()
     {
         try
@@ -67,7 +68,7 @@ public class AdminPresenter : Presenter
         }
         catch (KeyNotFoundException ex)
         {
-            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed, 37,11);
+            _adminView.ShowMessage($"Error: {ex.Message}", ConsoleColor.DarkRed, 37, 11);
             _adminView.UpdateCurrencyRateResult(false);
         }
     }

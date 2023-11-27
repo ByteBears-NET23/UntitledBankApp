@@ -1,5 +1,3 @@
-using UntitledBankApp.Factories;
-
 namespace UntitledBankApp.Presenters;
 
 public class LoginPresenter : Presenter
@@ -17,35 +15,42 @@ public class LoginPresenter : Presenter
 
     public override void HandlePresenter()
     {
-        User? user = null;
+        bool returnToLoginView = false;
 
-        // Keep track of login attempts
-        for (int attempts = 0; attempts < 3; attempts++)
+        do
         {
-            var credentials = _loginView.GetCredentials();
-            user = _loginService.GetUser(credentials.username, credentials.password);
+            User? user = null;
 
-            if (user != null)
+            // Keep track of login attempts
+            for (int attempts = 0; attempts < 3; attempts++)
             {
-                break;
+                var credentials = _loginView.GetCredentials();
+                user = _loginService.GetUser(credentials.username, credentials.password);
+
+                if (user != null)
+                {
+                    RedirectUserBasedOnRole(user);
+                    // Check if the user wants to go back to LoginView after successful login
+                    returnToLoginView = _loginView.ConfirmLogout();
+                    if (returnToLoginView)
+                    {
+                        break; // Exit the inner loop after successful login
+                    }
+                }
+                else
+                {
+                    Console.SetCursorPosition(44, 27);
+                    Console.WriteLine("\u001b[31mInvalid credentials. Please try again.\u001b[0m");
+                }
             }
-            else
+
+            if (!returnToLoginView)
             {
                 Console.SetCursorPosition(44, 27);
-                Console.WriteLine("\u001b[31mInvalid credentials. Please try again.\u001b[0m");
+                Console.WriteLine("\u001b[31mMaximum login attempts reached. Exiting...\u001b[0m");
             }
-        }
 
-        if (user != null)
-        {
-            RedirectUserBasedOnRole(user);
-        }
-        else
-        {
-            Console.SetCursorPosition(44, 27);
-
-            Console.WriteLine("\u001b[31mMaximum login attempts reached. Exiting...\u001b[0m");
-        }
+        } while (returnToLoginView);
     }
 
     private void RedirectUserBasedOnRole(User user)

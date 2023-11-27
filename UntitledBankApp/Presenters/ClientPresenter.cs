@@ -48,10 +48,15 @@ public class ClientPresenter : Presenter
                     HandleTransferMoney();
                     break;
                 case 5:
-                    return;
-
-                case 6: // Logout option
-                        return; // Exit the method, effectively logging out
+                    return; // Exit the loop, effectively going back to the main menu
+                    break;
+                case 6:
+                    // Implement the logic for logging out
+                    bool confirmLogout = _clientView.ConfirmLogout();
+                    if (confirmLogout)
+                    {
+                        return; // Exit the loop, effectively logging out
+                    }
                     break;
                 default:
                     _clientView.ShowMessage("Invalid choice. Please try again.", ConsoleColor.Red);

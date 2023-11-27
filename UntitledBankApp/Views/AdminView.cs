@@ -32,13 +32,13 @@ public class AdminView : View
 
         return choice;
     }
-    public bool ConfirmLogout()
-    {
-        ShowMessage("Are you sure you want to logout? (Y/N): ", ConsoleColor.Yellow, 44, 16);
-        var key = Console.ReadKey().Key;
-        _shouldLogout = key == ConsoleKey.Y;
-        return _shouldLogout;
-    }
+    //public bool ConfirmLogout()
+    //{
+    //    ShowMessage("Are you sure you want to logout? (Y/N): ", ConsoleColor.Yellow, 44, 16);
+    //    var key = Console.ReadKey().Key;
+    //    _shouldLogout = key == ConsoleKey.Y;
+    //    return _shouldLogout;
+    //}
     protected override void DisplayHeader()
     {
         _boxDrawer.DrawBox();

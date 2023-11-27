@@ -2,7 +2,10 @@
 
 public abstract class View
 {
-   
+    private bool _returnToLoginView;
+
+    public bool ReturnToLoginView => _returnToLoginView;
+
     public string Tital = @"
 
                                 ╔══════════════════════════════════════════════════════════╗
@@ -25,5 +28,13 @@ public abstract class View
         Console.Write(message);
         Console.ResetColor();
     }
-    
+    public bool ConfirmLogout()
+    {
+        Console.SetCursorPosition(44, 14);
+        Console.Write("Do you want to return to LoginView? (Y/N): ");
+        var key = Console.ReadKey().Key;
+        _returnToLoginView = key == ConsoleKey.Y;
+        return _returnToLoginView;
+    }
+
 }
