@@ -5,7 +5,6 @@ public class AdminView : View
     private Admin admin;
     private SimpleMenu _menu;
     private BoxDrawer _boxDrawer;
-    private bool _shouldLogout = false;
     public AdminView(Admin admin)
     {
         this.admin = admin;
@@ -24,7 +23,7 @@ public class AdminView : View
     {
         int choice = _menu.DisplayMenu();
 
-        // Check if the user selected "3:"
+        // Check if the user selected "3: Logout"
         if (choice == 3)
         {
             ConfirmLogout();

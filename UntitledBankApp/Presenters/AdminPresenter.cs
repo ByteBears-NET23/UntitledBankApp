@@ -1,3 +1,5 @@
+using UntitledBankApp.Views;
+
 namespace UntitledBankApp.Presenters;
 
 public class AdminPresenter : Presenter
@@ -5,7 +7,6 @@ public class AdminPresenter : Presenter
     private PseudoDb _pseudoDb;
     private AdminService _adminService;
     private AdminView _adminView;
-    private bool _shouldLogout = false;
 
     public AdminPresenter(PseudoDb pseudoDb, AdminService adminService, AdminView adminView)
     {
@@ -21,8 +22,7 @@ public class AdminPresenter : Presenter
         int adminChoice;
         bool logout = false;
 
-        do
-        {
+        
             adminChoice = _adminView.GetAdminChoice();
 
             // Perform the selected action
@@ -35,13 +35,17 @@ public class AdminPresenter : Presenter
                     HandleSetCurrencyRate();
                     break;
                 case 3: // Logout option
-                    logout = _adminView.ConfirmLogout();
+                    bool confirmLogout = _adminView.ConfirmLogout();
+                    if (confirmLogout)
+                    {
+                        return; // Exit the loop, effectively logging out
+                    }
                     break;
                 default:
                     _adminView.ShowMessage("Invalid choice. Please select a valid option.", ConsoleColor.DarkRed);
                     break;
             }
-        } while (!logout && !_shouldLogout); // Change the loop condition as needed
+         // Change the loop condition as needed
     }
 
     private void HandleCreateUser()
